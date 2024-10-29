@@ -2,15 +2,13 @@ from django.db import models
 
 # Create your models here.
 
-from django.db import models
-
 
 class Contact(models.Model):
     color = models.IntegerField()  # Farbe als Zahl, evtl. einheitlich verwenden
     email = models.EmailField()    # Verwende EmailField für E-Mails
     name = models.CharField(max_length=255)  # CharField für kurze Textinhalte
     # Hier evtl. PasswordField oder Hashing anwenden
-    password = models.CharField(max_length=255)
+    password = models.CharField(max_length=255, blank=True, null=True)
     phone = models.CharField(max_length=20)  # Phone-Feld mit begrenzter Länge
     user = models.BooleanField()  # True/False für Benutzerstatus
 
@@ -40,9 +38,9 @@ class Task(models.Model):
         (USER_STORY, 'User story')
     ]
 
-    LOW = 'Low'
-    MEDIUM = 'Medium'
-    HIGH = 'High'
+    LOW = 'low'
+    MEDIUM = 'medium'
+    HIGH = 'urgent'
 
     PRIORITY_CHOICES = [
         (LOW, 'Low Priority'),
@@ -55,7 +53,7 @@ class Task(models.Model):
                                     choices=CATEGORY_CHOICES,  # Die Auswahlmöglichkeiten
                                     default=TECHNICAL  # Standardwert
                                     )
-    descriptionTask = models.TextField()  # TextField für längere Beschreibungen
+    descriptionTask = models.TextField(blank=True, null=True)  # TextField für längere Beschreibungen
     nameAssignedTask = models.ManyToManyField(
         Contact, related_name="tasks")  # ManyToManyField, ohne on_delete
     # CharField für kurze Texte zur Priorität
@@ -68,7 +66,7 @@ class Task(models.Model):
         choices=STATUS_CHOICES,  # Die Auswahlmöglichkeiten
         default=TODO  # Standardwert
     )  # Status als Integer
-    timeDeadlineTask = models.DateTimeField()  # DateTimeField für Deadlines
+    timeDeadlineTask = models.DateField()  # DateTimeField für Deadlines
     titleTask = models.CharField(max_length=255)  # CharField für kurze Titel
 
     def __str__(self):
@@ -78,7 +76,7 @@ class Task(models.Model):
 class SubTask(models.Model):
     # Verknüpfung zum übergeordneten Task
     task = models.ForeignKey(
-        Task, on_delete=models.CASCADE, related_name="subtasks")
+        Task, on_delete=models.CASCADE, related_name="subTasks")
     subTaskName = models.CharField(max_length=255)  # Name des Subtasks
     # Status (True = abgeschlossen, False = offen)
     statusSubTask = models.BooleanField(default=False)
