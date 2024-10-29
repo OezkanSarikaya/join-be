@@ -45,6 +45,15 @@ class TaskSerializer(serializers.ModelSerializer):
             'timeDeadlineTask', 'titleTask', 'subTasks'
         ]
 
+    # def __init__(self, *args, **kwargs):
+    #     fields = kwargs.pop('fields', None)  # Erlaubt, nur bestimmte Felder zu wählen
+    #     super(TaskSerializer, self).__init__(*args, **kwargs)
+    #     if fields:
+    #         allowed = set(fields)
+    #         existing = set(self.fields.keys())
+    #         for field_name in existing - allowed:
+    #             self.fields.pop(field_name)
+
     def create(self, validated_data):
         # Extrahiere subtasks und die Kontakte
         subTasks_data = validated_data.pop('subTasks')
