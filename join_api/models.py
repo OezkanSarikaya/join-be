@@ -9,7 +9,7 @@ class Contact(models.Model):
     name = models.CharField(max_length=255)  # CharField für kurze Textinhalte
     # Hier evtl. PasswordField oder Hashing anwenden
     password = models.CharField(max_length=255, blank=True, null=True)
-    phone = models.CharField(max_length=20)  # Phone-Feld mit begrenzter Länge
+    phone = models.CharField(max_length=20, blank=True, null=True)  # Phone-Feld mit begrenzter Länge
     user = models.BooleanField()  # True/False für Benutzerstatus
 
     def __str__(self):
