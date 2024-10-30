@@ -4,7 +4,6 @@ from .views import ContactViewSet, TaskViewSet, SubTaskViewSet
 from rest_framework import routers
 from rest_framework.routers import SimpleRouter
 
-# router = routers.SimpleRouter()
 router = SimpleRouter()
 router.register(r'contacts', ContactViewSet)
 router.register(r'tasks', TaskViewSet)

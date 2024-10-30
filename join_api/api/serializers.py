@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from join_api.models import Contact, Task, SubTask
 
-
 class ContactSerializer(serializers.ModelSerializer):
 
     class Meta:
