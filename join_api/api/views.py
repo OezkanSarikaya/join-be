@@ -6,16 +6,13 @@ from join_api.models import Contact, Task, SubTask
 from .serializers import ContactSerializer, TaskSerializer, SubTaskSerializer
 from django.shortcuts import get_object_or_404
 
-
 class ContactViewSet(viewsets.ModelViewSet):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
 
-
 class SubTaskViewSet(viewsets.ModelViewSet):
     queryset = SubTask.objects.all()
     serializer_class = SubTaskSerializer
-
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
@@ -24,7 +21,8 @@ class TaskViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['patch'], url_path='update_status')
     def update_status(self, request, pk=None):
         task = self.get_object()  # Der spezifische Task
-        new_status = request.data.get("status")  # Status aus der Anfrage entnehmen
+        # Status aus der Anfrage entnehmen
+        new_status = request.data.get("status")
 
         if new_status is None:
             return Response({"error": "Status field is required."}, status=status.HTTP_400_BAD_REQUEST)
@@ -77,27 +75,9 @@ class TaskViewSet(viewsets.ModelViewSet):
             status_serializer.save()
             return Response(status_serializer.data, status=status.HTTP_200_OK)
         return Response(status_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    # Custom Action, um nur `statusTask` eines Tasks zu aktualisieren (PATCH)
-    # @action(detail=True, methods=['patch'], url_path='update_task_status/(?P<task_id>[^/.]+)')
-    # def update_task_status(self, request, pk=None, task_id=None):
-    #     try:
-    #         task = SubTask.objects.get(pk=task_id, task_id=pk)
-    #     except SubTask.DoesNotExist:
-    #         return Response({'error': 'task not found'}, status=status.HTTP_404_NOT_FOUND)
-
-    #     # Nur `statusSubTask` wird aus `request.data` extrahiert und zum Aktualisieren verwendet
-    #     status_serializer = SubTaskSerializer(task, data=request.data, fields=[
-    #                                           'statusTask'], partial=True)
-
-    #     if status_serializer.is_valid():
-    #         status_serializer.save()
-    #         return Response(status_serializer.data, status=status.HTTP_200_OK)
-    #     return Response(status_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-
 
      # Custom Action, um einen Subtask zu aktualisieren (PUT)
+
     @action(detail=True, methods=['put', 'patch'], url_path='edit_subtask/(?P<subtask_id>[^/.]+)')
     def edit_subtask(self, request, pk=None, subtask_id=None):
         try:

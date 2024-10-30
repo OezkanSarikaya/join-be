@@ -1,28 +1,33 @@
 from rest_framework import serializers
 from join_api.models import Contact, Task, SubTask
 
+
 class ContactSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Contact
         fields = '__all__'
 
+
 class SubTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubTask
-        fields = ['id','subTaskName', 'statusSubTask']  # Die Felder des SubTasks
+        # Die Felder des SubTasks
+        fields = ['id', 'subTaskName', 'statusSubTask']
 
     def __init__(self, *args, **kwargs):
-        fields = kwargs.pop('fields', None)  # Erlaubt, nur bestimmte Felder zu wählen
+        # Erlaubt, nur bestimmte Felder zu wählen
+        fields = kwargs.pop('fields', None)
         super(SubTaskSerializer, self).__init__(*args, **kwargs)
         if fields:
             allowed = set(fields)
             existing = set(self.fields.keys())
             for field_name in existing - allowed:
                 self.fields.pop(field_name)
-    
+
 class TaskSerializer(serializers.ModelSerializer):
     subTasks = SubTaskSerializer(many=True)  # Nested Serializer für Subtasks
+    
     # Write-only für Kontakt-IDs
     nameAssignedTask = serializers.PrimaryKeyRelatedField(
         queryset=Contact.objects.all(),
@@ -45,52 +50,50 @@ class TaskSerializer(serializers.ModelSerializer):
             'timeDeadlineTask', 'titleTask', 'subTasks'
         ]
 
-    # def __init__(self, *args, **kwargs):
-    #     fields = kwargs.pop('fields', None)  # Erlaubt, nur bestimmte Felder zu wählen
-    #     super(TaskSerializer, self).__init__(*args, **kwargs)
-    #     if fields:
-    #         allowed = set(fields)
-    #         existing = set(self.fields.keys())
-    #         for field_name in existing - allowed:
-    #             self.fields.pop(field_name)
-
     def create(self, validated_data):
         # Extrahiere subtasks und die Kontakte
         subTasks_data = validated_data.pop('subTasks')
         contacts_data = validated_data.pop('nameAssignedTask')
-        
+
         # Erstelle den Task ohne die Many-to-Many-Beziehung zu den Kontakten
         task = Task.objects.create(**validated_data)
-        
+
         # Weise die Kontakte (nameAssignedTask) über die set()-Methode zu
         task.nameAssignedTask.set(contacts_data)
-        
+
         # Erstelle die Subtasks und verknüpfe sie mit dem Task
         for subTasks_data in subTasks_data:
             SubTask.objects.create(task=task, **subTasks_data)
-        
+
         return task
-    
+
     def update(self, instance, validated_data):
         # Extrahiere die Subtask-Daten
         subtasks_data = validated_data.pop('subTasks')
         contacts_data = validated_data.pop('nameAssignedTask')
 
         # Update der Task-Felder
-        instance.categoryTask = validated_data.get('categoryTask', instance.categoryTask)
-        instance.descriptionTask = validated_data.get('descriptionTask', instance.descriptionTask)
-        instance.priorityTask = validated_data.get('priorityTask', instance.priorityTask)
+        instance.categoryTask = validated_data.get(
+            'categoryTask', instance.categoryTask)
+        instance.descriptionTask = validated_data.get(
+            'descriptionTask', instance.descriptionTask)
+        instance.priorityTask = validated_data.get(
+            'priorityTask', instance.priorityTask)
         instance.status = validated_data.get('status', instance.status)
-        instance.timeDeadlineTask = validated_data.get('timeDeadlineTask', instance.timeDeadlineTask)
-        instance.titleTask = validated_data.get('titleTask', instance.titleTask)
+        instance.timeDeadlineTask = validated_data.get(
+            'timeDeadlineTask', instance.timeDeadlineTask)
+        instance.titleTask = validated_data.get(
+            'titleTask', instance.titleTask)
         instance.save()
 
         # Kontakte aktualisieren
         instance.nameAssignedTask.set(contacts_data)
 
         # Subtasks aktualisieren
-        existing_subtask_ids = [subtask.id for subtask in instance.subTasks.all()]
-        new_subtask_ids = [item.get('id') for item in subtasks_data if 'id' in item]
+        existing_subtask_ids = [
+            subtask.id for subtask in instance.subTasks.all()]
+        new_subtask_ids = [item.get('id')
+                           for item in subtasks_data if 'id' in item]
 
         # Entferne Subtasks, die nicht mehr vorhanden sind
         for subtask_id in existing_subtask_ids:
@@ -103,14 +106,13 @@ class TaskSerializer(serializers.ModelSerializer):
             if subtask_id and subtask_id in existing_subtask_ids:
                 # Wenn der Subtask existiert, aktualisieren
                 subtask = SubTask.objects.get(id=subtask_id, task=instance)
-                subtask.subTaskName = subtask_data.get('subTaskName', subtask.subTaskName)
-                subtask.statusSubTask = subtask_data.get('statusSubTask', subtask.statusSubTask)
+                subtask.subTaskName = subtask_data.get(
+                    'subTaskName', subtask.subTaskName)
+                subtask.statusSubTask = subtask_data.get(
+                    'statusSubTask', subtask.statusSubTask)
                 subtask.save()
             else:
                 # Neuen Subtask erstellen
                 SubTask.objects.create(task=instance, **subtask_data)
 
         return instance
-    
-    
-
