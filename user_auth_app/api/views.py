@@ -1,19 +1,20 @@
-from rest_framework import generics
-from user_auth_app.models import UserProfile
-from .serializers import RegistrationSerializer, UserProfileSerializer
+# from rest_framework import generics
+# from user_auth_app.models import UserProfile
+from .serializers import RegistrationSerializer #, UserProfileSerializer
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
+from join_api.models import Contact
 
-class UserProfileList(generics.ListCreateAPIView):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
+# class UserProfileList(generics.ListCreateAPIView):
+#     queryset = UserProfile.objects.all()
+#     serializer_class = UserProfileSerializer
 
-class UserProfileDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
+# class UserProfileDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = UserProfile.objects.all()
+#     serializer_class = UserProfileSerializer
 
 class RegistrationView(APIView):
     permission_classes = [AllowAny]
@@ -46,9 +47,19 @@ class CustomLoginView(ObtainAuthToken):
         if serializer.is_valid():
             user = serializer.validated_data['user']
             token, created = Token.objects.get_or_create(user=user)
+
+            try:
+                contact = Contact.objects.get(user=user)  # Hier user auf user_id prüfen, falls das Feld so heißt
+                contact_data = contact.name
+                
+          
+            except Contact.DoesNotExist:
+                contact_data = None  # Falls kein Contact-Eintrag existiert
+
+
             data = {
                 'token': token.key,
-                'username': user.username,
+                'name': contact_data,
                 'email': user.email,
             }
         else:

@@ -1,12 +1,7 @@
 from rest_framework import serializers
-from user_auth_app.models import UserProfile
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
-
-class UserProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserProfile
-        fields = ['user', 'bio', 'location']
+# from django.contrib.auth import authenticate
+from join_api.models import Contact
 
 class RegistrationSerializer(serializers.ModelSerializer):
     repeated_password = serializers.CharField(write_only=True)
@@ -34,6 +29,13 @@ class RegistrationSerializer(serializers.ModelSerializer):
         account = User(email=self.validated_data['email'], username=self.validated_data['username'])
         account.set_password(pw)
         account.save()
+ 
+        contact = Contact.objects.filter(user__isnull=True, email=email).first()
+        if contact:
+            contact.user = account  # Verknüpft den bestehenden Contact mit dem User
+            contact.save()
+        else:
+            raise serializers.ValidationError({'error': 'Contact entry not found for this user'})      
 
         return account    
 

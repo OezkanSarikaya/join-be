@@ -5,14 +5,14 @@ from django.contrib.auth.models import User
 
 
 class Contact(models.Model):
-    color = models.IntegerField()  # Farbe als Zahl, evtl. einheitlich verwenden
+    color = models.IntegerField(default=0)  # Farbe als Zahl, evtl. einheitlich verwenden
     email = models.EmailField()    # Verwende EmailField für E-Mails
     name = models.CharField(max_length=255)  # CharField für kurze Textinhalte
     # Hier evtl. PasswordField oder Hashing anwenden
     password = models.CharField(max_length=255, blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True)  # Phone-Feld mit begrenzter Länge
-    user = models.BooleanField()  # True/False für Benutzerstatus
-    uid = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    is_user = models.BooleanField(default=False)  # True/False für Benutzerstatus
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name="contact")
 
     def __str__(self):
         return self.name
