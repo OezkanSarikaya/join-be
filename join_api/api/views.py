@@ -5,11 +5,13 @@ from rest_framework.response import Response
 from join_api.models import Contact, Task, SubTask
 from .serializers import ContactSerializer, TaskSerializer, SubTaskSerializer
 from django.shortcuts import get_object_or_404
+from .permissions import IsOwnerOrAdmin
 # from user_auth_app.models import UserProfile
 
 class ContactViewSet(viewsets.ModelViewSet):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
+    permission_classes = [IsOwnerOrAdmin]
 
 class SubTaskViewSet(viewsets.ModelViewSet):
     queryset = SubTask.objects.all()
