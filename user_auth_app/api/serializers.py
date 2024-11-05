@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from user_auth_app.models import UserProfile
 # from django.contrib.auth import authenticate
 from join_api.models import Contact
 
@@ -38,6 +39,26 @@ class RegistrationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'error': 'Contact entry not found for this user'})      
 
         return account    
+    
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
+# class LoginSerializer(serializers.ModelSerializer):
+  
+
+#     class Meta:
+#         model = User
+#         fields = ['username', 'email', 'password', 'repeated_password']
+#         extra_kwargs= {
+#             'password': {
+#                 'write_only' : True
+#             }
+#         }
+
+   
+
 
 
 

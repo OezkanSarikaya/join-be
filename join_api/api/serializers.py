@@ -1,11 +1,23 @@
 from rest_framework import serializers
 from join_api.models import Contact, Task, SubTask
+# from django.contrib.auth.models import User
+
 
 class ContactSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Contact
         fields = '__all__'
+
+    def validate_email(self, value):
+        if self.instance:  # Prüfen, ob ein Kontakt aktualisiert wird
+            if Contact.objects.exclude(id=self.instance.id).filter(email=value).exists():
+                raise serializers.ValidationError(
+                    "A contact with this email already exists.")
+        else:  # Validierung nur bei neuen Kontakten
+            if Contact.objects.filter(email=value).exists():
+                raise serializers.ValidationError(
+                    "A contact with this email already exists.")
+        return value
 
 
 class SubTaskSerializer(serializers.ModelSerializer):
@@ -24,9 +36,10 @@ class SubTaskSerializer(serializers.ModelSerializer):
             for field_name in existing - allowed:
                 self.fields.pop(field_name)
 
+
 class TaskSerializer(serializers.ModelSerializer):
     subTasks = SubTaskSerializer(many=True)  # Nested Serializer für Subtasks
-    
+
     # Write-only für Kontakt-IDs
     nameAssignedTask = serializers.PrimaryKeyRelatedField(
         queryset=Contact.objects.all(),

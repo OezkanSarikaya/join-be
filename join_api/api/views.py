@@ -8,10 +8,28 @@ from django.shortcuts import get_object_or_404
 from .permissions import IsOwnerOrAdmin
 # from user_auth_app.models import UserProfile
 
+# class ContactViewSet(viewsets.ModelViewSet):
+#     queryset = Contact.objects.all()
+#     serializer_class = ContactSerializer
+#     permission_classes = [IsOwnerOrAdmin]
+
 class ContactViewSet(viewsets.ModelViewSet):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
     permission_classes = [IsOwnerOrAdmin]
+
+    def create(self, request, *args, **kwargs):
+        email = request.data.get('email')
+        
+        # Prüfen, ob die E-Mail bereits existiert
+        if Contact.objects.filter(email=email).exists():
+            return Response(
+                {"message": "A contact with this email already exists."},
+                status=status.HTTP_200_OK
+            )
+        
+        # Wenn keine Duplikate vorhanden sind, normalen Ablauf der Erstellung ausführen
+        return super().create(request, *args, **kwargs)
 
 class SubTaskViewSet(viewsets.ModelViewSet):
     queryset = SubTask.objects.all()
