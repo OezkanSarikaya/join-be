@@ -1,0 +1,412 @@
+{
+  "contacts": {
+    "-O4ezIRneRkBQCzNzsil": {
+      "color": 1,
+      "email": "max.schmidt@example.com",
+      "name": "Max Schmidt",
+      "password": "",
+      "phone": "01729876543",
+      "user": false
+    },
+    "-O4ezMc4FG-8e6G9wlJK": {
+      "color": 2,
+      "email": "lisa.fischer@example.com",
+      "name": "Lisa Fischer ",
+      "password": "",
+      "phone": "01601234567",
+      "user": false
+    },
+    "-O4ezQYo5sE02_jnUAZj": {
+      "color": 3,
+      "email": "paul.weber@example.com",
+      "name": "Paul Weber",
+      "password": "",
+      "phone": "01717654321",
+      "user": false
+    },
+    "-O4ezU41JEWt1N8gImT1": {
+      "color": 4,
+      "email": "sophie.wagner@example.com",
+      "name": "Sophie Wagner",
+      "password": "",
+      "phone": "01578901234",
+      "user": false
+    },
+    "-O4ezXtrrot8SqM0Ajoa": {
+      "color": 5,
+      "email": "lukas.becker@example.com",
+      "name": "Lukas Becker",
+      "password": "",
+      "phone": "01765678901",
+      "user": false
+    },
+    "-O4ezcWP63AMDJQy0fr8": {
+      "color": 6,
+      "email": "julia.hoffmann@example.com",
+      "name": "Julia Hoffmann ",
+      "password": "",
+      "phone": "01592340987",
+      "user": false
+    },
+    "-O4ezginp-mP2QdJvfyy": {
+      "color": 7,
+      "email": "tom.bauer@example.com",
+      "name": "Tom Bauer",
+      "password": "",
+      "phone": "01786543210",
+      "user": false
+    },
+    "-O4ezkQiaJK9ClDjoTfh": {
+      "color": 8,
+      "email": "laura.richter@example.com",
+      "name": "Laura Richter",
+      "password": "",
+      "phone": "01638765432",
+      "user": false
+    },
+    "-O4eznw1WTr4uSCVihte": {
+      "color": 9,
+      "email": "felix.klein@example.com",
+      "name": "Felix Klein",
+      "password": "",
+      "phone": "01529087654",
+      "user": false
+    }
+  },
+  "tasks": {
+    "-O4f0Djc09nPDYzeLYv4": {
+      "categoryTask": "Technical task",
+      "descriptionTask": "Initialize a new Angular project using the Angular CLI. Configure project structure and install necessary dependencies.",
+      "nameAssignedTask": [
+        null,
+        {
+          "colorIndex": "1",
+          "email": "max.schmidt@example.com",
+          "name": "Max Schmidt"
+        }
+      ],
+      "priorityTask": "urgent",
+      "status": 4,
+      "subTasks": [
+        {
+          "statusSubTask": true,
+          "subTaskName": "Install Angular CLI"
+        },
+        {
+          "statusSubTask": true,
+          "subTaskName": "Create new project"
+        },
+        {
+          "statusSubTask": true,
+          "subTaskName": "Set up folder structure"
+        },
+        {
+          "statusSubTask": true,
+          "subTaskName": "Install dependencies (e.g., Angular Material)"
+        }
+      ],
+      "timeDeadlineTask": "2024-08-19",
+      "titleTask": "Set Up Angular Project"
+    },
+    "-O4f0SXM9wlLaQO0h-iE": {
+      "categoryTask": "User story",
+      "descriptionTask": "Develop a user authentication system including login, registration, and session management. test",
+      "nameAssignedTask": [
+        {
+          "colorIndex": "1",
+          "email": "max.schmidt@example.com",
+          "name": "Max Schmidt"
+        },
+        {
+          "colorIndex": "2",
+          "email": "lisa.fischer@example.com",
+          "name": "Lisa Fischer "
+        },
+        {
+          "colorIndex": "3",
+          "email": "paul.weber@example.com",
+          "name": "Paul Weber"
+        },
+        {
+          "colorIndex": "4",
+          "email": "sophie.wagner@example.com",
+          "name": "Sophie Wagner"
+        },
+        {
+          "colorIndex": "5",
+          "email": "lukas.becker@example.com",
+          "name": "Lukas Becker"
+        }
+      ],
+      "priorityTask": "urgent",
+      "status": 2,
+      "subTasks": [
+        {
+          "statusSubTask": true,
+          "subTaskName": "Create login component"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Implement registration functionality"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Set up JWT-based session management"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Add password reset feature"
+        }
+      ],
+      "timeDeadlineTask": "2024-11-10",
+      "titleTask": "Implement User Authentication"
+    },
+    "-O4f0b5nY26T9LT0OePY": {
+      "categoryTask": "User story",
+      "descriptionTask": "Create the user interface for the Kanban board, including columns for different stages and drag-and-drop functionality. test",
+      "priorityTask": "medium",
+      "status": 1,
+      "subTasks": [
+        {
+          "statusSubTask": false,
+          "subTaskName": "Design column layout"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Implement drag-and-drop feature"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Style the board using Angular Material"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Add responsive design"
+        }
+      ],
+      "timeDeadlineTask": "2024-11-09",
+      "titleTask": "Design Kanban Board UI ee"
+    },
+    "-O4f0kuAuJtSCxgMZgtk": {
+      "categoryTask": "Technical task",
+      "descriptionTask": "Connect the Angular frontend to the backend API to fetch and display project data.",
+      "nameAssignedTask": [
+        {
+          "colorIndex": "2",
+          "email": "lisa.fischer@example.com",
+          "name": "Lisa Fischer "
+        },
+        {
+          "colorIndex": "3",
+          "email": "paul.weber@example.com",
+          "name": "Paul Weber"
+        }
+      ],
+      "priorityTask": "urgent",
+      "status": 2,
+      "subTasks": [
+        {
+          "statusSubTask": false,
+          "subTaskName": "Set up HTTP client in Angular"
+        },
+        {
+          "statusSubTask": true,
+          "subTaskName": "Implement API service"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Handle API responses and errors"
+        }
+      ],
+      "timeDeadlineTask": "2024-10-21",
+      "titleTask": "Integrate Backend API"
+    },
+    "-O4f0wkfXAXiI2GJ1nXA": {
+      "categoryTask": "User story",
+      "descriptionTask": "Implement functionality to filter and sort tasks on the Kanban board by status, priority, and category.",
+      "nameAssignedTask": [
+        {
+          "colorIndex": "6",
+          "email": "julia.hoffmann@example.com",
+          "name": "Julia Hoffmann "
+        },
+        {
+          "colorIndex": "7",
+          "email": "tom.bauer@example.com",
+          "name": "Tom Bauer"
+        }
+      ],
+      "priorityTask": "medium",
+      "status": 1,
+      "timeDeadlineTask": "2024-11-10",
+      "titleTask": "Task Filtering and Sorting"
+    },
+    "-O4f15i4dCXVbNbXOsUf": {
+      "categoryTask": "Technical task",
+      "descriptionTask": "Develop a system to manage user roles and permissions, allowing different levels of access to the Kanban board.",
+      "nameAssignedTask": [
+        {
+          "colorIndex": "1",
+          "email": "max.schmidt@example.com",
+          "name": "Max Schmidt"
+        },
+        {
+          "colorIndex": "2",
+          "email": "lisa.fischer@example.com",
+          "name": "Lisa Fischer "
+        }
+      ],
+      "priorityTask": "medium",
+      "status": 3,
+      "subTasks": [
+        {
+          "statusSubTask": true,
+          "subTaskName": "Define user roles (Admin, User)"
+        },
+        {
+          "statusSubTask": true,
+          "subTaskName": "Implement role-based access control"
+        },
+        {
+          "statusSubTask": true,
+          "subTaskName": "Test access restrictions for different roles"
+        }
+      ],
+      "timeDeadlineTask": "2024-08-29",
+      "titleTask": "User Role Management"
+    },
+    "-O4f1InIGFgOwa8Mu4I8": {
+      "categoryTask": "User story",
+      "descriptionTask": "Add a feature that allows users to leave comments on tasks for better collaboration and communication.",
+      "nameAssignedTask": [
+        {
+          "colorIndex": "8",
+          "email": "laura.richter@example.com",
+          "name": "Laura Richter"
+        },
+        {
+          "colorIndex": "9",
+          "email": "felix.klein@example.com",
+          "name": "Felix Klein"
+        }
+      ],
+      "priorityTask": "low",
+      "status": 4,
+      "subTasks": [
+        {
+          "statusSubTask": true,
+          "subTaskName": "Create comment section for tasks"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Implement comment posting functionality"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Style comment display"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Add edit and delete options for comments"
+        }
+      ],
+      "timeDeadlineTask": "2024-09-05",
+      "titleTask": "Implement Task Comments"
+    },
+    "-O4f1S2zTrt3pGfaxHqn": {
+      "categoryTask": "Technical task",
+      "descriptionTask": "Develop a notification system to alert users of important updates or changes in the Kanban board.",
+      "nameAssignedTask": [
+        {
+          "colorIndex": "7",
+          "email": "tom.bauer@example.com",
+          "name": "Tom Bauer"
+        }
+      ],
+      "priorityTask": "low",
+      "status": 1,
+      "subTasks": [
+        {
+          "statusSubTask": false,
+          "subTaskName": "Set up push notifications"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Implement in-app notifications"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Configure notification settings"
+        }
+      ],
+      "timeDeadlineTask": "2024-09-10",
+      "titleTask": "Notification System"
+    },
+    "-O4f1aXuv_eNOeZPVT26": {
+      "categoryTask": "Technical task",
+      "descriptionTask": "Perform optimization tasks to improve the performance of the Angular application, focusing on load times and responsiveness.",
+      "nameAssignedTask": [
+        {
+          "colorIndex": "9",
+          "email": "felix.klein@example.com",
+          "name": "Felix Klein"
+        }
+      ],
+      "priorityTask": "medium",
+      "status": 2,
+      "subTasks": [
+        {
+          "statusSubTask": true,
+          "subTaskName": "Analyze and reduce bundle size"
+        },
+        {
+          "statusSubTask": true,
+          "subTaskName": "Implement lazy loading for modules"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Optimize API calls and data management"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Test performance on different devices"
+        }
+      ],
+      "timeDeadlineTask": "2024-08-28",
+      "titleTask": "Optimize Performance"
+    },
+    "-O4f1lJe2Mv8807J3EwE": {
+      "categoryTask": "Technical task",
+      "descriptionTask": "Develop and run unit tests for key components of the Kanban board to ensure code quality and reliability.",
+      "nameAssignedTask": [
+        {
+          "colorIndex": "6",
+          "email": "julia.hoffmann@example.com",
+          "name": "Julia Hoffmann "
+        }
+      ],
+      "priorityTask": "low",
+      "status": 3,
+      "subTasks": [
+        {
+          "statusSubTask": false,
+          "subTaskName": "Write tests for authentication components"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Test Kanban board drag-and-drop functionality"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Implement tests for API service"
+        },
+        {
+          "statusSubTask": false,
+          "subTaskName": "Run tests and fix any issues"
+        }
+      ],
+      "timeDeadlineTask": "2024-09-12",
+      "titleTask": "Write Unit Tests"
+    }
+  }
+}

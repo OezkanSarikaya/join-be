@@ -31,7 +31,7 @@ def get_guest_user():
     Contact.objects.get_or_create(
         user=guest_user,
         defaults={
-            'email': "guest@domain.com",  # Pseudo-Email für den Gast
+            'email': "guest@test.de",  # Pseudo-Email für den Gast
             'name': "Guest User",
             'color': 0  # Beispielwert für Farbe, falls erforderlich
         }
@@ -73,22 +73,23 @@ class CustomLoginView(APIView):
 
     def post(self, request):
 
-        is_guest = request.data.get("is_guest", False)
-        data = {}
+        # is_guest = request.data.get("is_guest", False)
+        # data = {}
 
-        if is_guest:
-            # Gastzugang gewähren
-            guest_user, token = get_guest_user()
-            data = {
-                "token": token.key,
-                "username": guest_user.username,
-                "email": "guest@domain.com",  # Evtl. als Pseudoe-Mail für Gast
-                "name": "Guest User"
-            }
-            return Response(data, status=status.HTTP_200_OK)
+        # if is_guest:
+        #     # Gastzugang gewähren
+        #     guest_user, token = get_guest_user()
+        #     data = {
+        #         "token": token.key,
+        #         "username": guest_user.username,
+        #         "email": "guest@test.de",  # Evtl. als Pseudoe-Mail für Gast
+        #         "name": "Guest User"
+        #     }
+        #     return Response(data, status=status.HTTP_200_OK)
 
-        email = request.data.get('email')
+        email = request.data.get('username')
         password = request.data.get('password')
+        # print(email , password)
         # serializer = LoginSerializer(data=request.data)
         # data = {}
 

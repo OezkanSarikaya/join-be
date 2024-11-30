@@ -1,4 +1,3 @@
-
 # Join Backend API
 
 Dies ist das Backend für das **Join**-Projekt, das mit Django und dem Django REST Framework entwickelt wurde. Es stellt Endpunkte für Kontakte, Aufgaben und Unteraufgaben (SubTasks) zur Verfügung.
@@ -11,12 +10,14 @@ Dies ist das Backend für das **Join**-Projekt, das mit Django und dem Django RE
 ## Installation
 
 1. **Repository klonen**:
+
    ```bash
    git clone https://github.com/dein-benutzername/dein-repo.git
    cd dein-repo
    ```
 
 2. **Virtuelle Umgebung erstellen und aktivieren**:
+
    ```bash
    python3 -m venv venv
    source venv/bin/activate  # für Unix-Systeme
@@ -24,13 +25,29 @@ Dies ist das Backend für das **Join**-Projekt, das mit Django und dem Django RE
    ```
 
 3. **Abhängigkeiten installieren**:
+
    ```bash
    pip install -r requirements.txt
    ```
 
-## Datenbank
+4. **Datenbank migrieren**:
 
-Das Projekt verwendet eine SQLite-Datenbank, die bereits im Repository (`db.sqlite3`) vorhanden ist.
+```bash
+  python manage.py makemigrations
+  python manage.py migrate
+```
+
+5. **Daten importieren**:
+
+```bash
+  python import_firebase_data.py
+```
+
+6. **Server starten**:
+
+```bash
+  python manage.py runserver
+```
 
 ## Einstellungen
 
@@ -43,8 +60,8 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:5501",
-    "http://localhost:5501",
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
 ]
 ```
 
@@ -58,7 +75,9 @@ Passen Sie die URLs an, falls das Frontend auf einer anderen Domain oder Port l�
 - **Methoden:** `GET`, `POST`, `PUT`, `PATCH`, `DELETE`
 
 #### Beispiel:
+
 - **GET /api/contacts/**:
+
   ```json
   [
     {
@@ -88,7 +107,9 @@ Passen Sie die URLs an, falls das Frontend auf einer anderen Domain oder Port l�
 - **Methoden:** `GET`, `POST`, `PUT`, `PATCH`, `DELETE`
 
 #### Beispiel:
+
 - **GET /api/tasks/**:
+
   ```json
   [
     {
@@ -122,15 +143,15 @@ Passen Sie die URLs an, falls das Frontend auf einer anderen Domain oder Port l�
 
 - **Endpunkt:** `/api/tasks/{task_id}/subtasks/`
   - **Methoden:** `GET` (Listet alle SubTasks einer Aufgabe auf)
-  
 - **Einzelner SubTask**: `/api/tasks/{task_id}/subtasks/{subtask_id}/`
   - **Methoden:** `GET` (Ruft einen bestimmten SubTask ab)
-  
 - **SubTask-Status aktualisieren**: `/api/tasks/{task_id}/update_subtask_status/{subtask_id}/`
   - **Methoden:** `PATCH`
 
 #### Beispiel:
+
 - **GET /api/tasks/1/subtasks/**:
+
   ```json
   [
     {
@@ -143,6 +164,7 @@ Passen Sie die URLs an, falls das Frontend auf einer anderen Domain oder Port l�
   ```
 
 - **PATCH /api/tasks/1/update_subtask_status/1/**:
+
   - Beispiel-Request:
     ```json
     {
@@ -162,33 +184,36 @@ Passen Sie die URLs an, falls das Frontend auf einer anderen Domain oder Port l�
 ## Datenmodell
 
 ### 1. **Contact**
-| Feld       | Typ         | Beschreibung                  |
-|------------|-------------|-------------------------------|
-| `id`       | Integer     | Primärschlüssel               |
-| `name`     | CharField   | Name des Kontakts             |
-| `email`    | EmailField  | Email-Adresse                 |
-| `phone`    | CharField   | Telefonnummer                 |
-| `user`     | Boolean     | Benutzerstatus (True/False)   |
+
+| Feld    | Typ        | Beschreibung                |
+| ------- | ---------- | --------------------------- |
+| `id`    | Integer    | Primärschlüssel             |
+| `name`  | CharField  | Name des Kontakts           |
+| `email` | EmailField | Email-Adresse               |
+| `phone` | CharField  | Telefonnummer               |
+| `user`  | Boolean    | Benutzerstatus (True/False) |
 
 ### 2. **Task**
-| Feld               | Typ            | Beschreibung                                     |
-|--------------------|----------------|--------------------------------------------------|
-| `id`               | Integer        | Primärschlüssel                                  |
-| `titleTask`        | CharField      | Titel der Aufgabe                                |
-| `categoryTask`     | ChoiceField    | Kategorie (z. B. Technical task, User story)     |
-| `descriptionTask`  | TextField      | Beschreibung der Aufgabe                         |
-| `priorityTask`     | ChoiceField    | Priorität (z. B. low, medium, high)              |
-| `status`           | IntegerField   | Status (To Do, In Progress, Await Feedback, Done)|
-| `timeDeadlineTask` | DateField      | Fälligkeitsdatum                                 |
-| `subTasks`         | ManyToMany     | Verknüpfte Unteraufgaben                         |
+
+| Feld               | Typ          | Beschreibung                                      |
+| ------------------ | ------------ | ------------------------------------------------- |
+| `id`               | Integer      | Primärschlüssel                                   |
+| `titleTask`        | CharField    | Titel der Aufgabe                                 |
+| `categoryTask`     | ChoiceField  | Kategorie (z. B. Technical task, User story)      |
+| `descriptionTask`  | TextField    | Beschreibung der Aufgabe                          |
+| `priorityTask`     | ChoiceField  | Priorität (z. B. low, medium, high)               |
+| `status`           | IntegerField | Status (To Do, In Progress, Await Feedback, Done) |
+| `timeDeadlineTask` | DateField    | Fälligkeitsdatum                                  |
+| `subTasks`         | ManyToMany   | Verknüpfte Unteraufgaben                          |
 
 ### 3. **SubTask**
-| Feld           | Typ          | Beschreibung                                      |
-|----------------|--------------|---------------------------------------------------|
-| `id`           | Integer      | Primärschlüssel                                   |
-| `subTaskName`  | CharField    | Name der Unteraufgabe                             |
-| `statusSubTask`| BooleanField | Status (True = abgeschlossen, False = offen)      |
 
---- 
+| Feld            | Typ          | Beschreibung                                 |
+| --------------- | ------------ | -------------------------------------------- |
+| `id`            | Integer      | Primärschlüssel                              |
+| `subTaskName`   | CharField    | Name der Unteraufgabe                        |
+| `statusSubTask` | BooleanField | Status (True = abgeschlossen, False = offen) |
+
+---
 
 Dieses README deckt die grundlegende Nutzung und API-Struktur des Backends ab.

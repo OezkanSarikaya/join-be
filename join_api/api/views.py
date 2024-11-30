@@ -6,17 +6,12 @@ from join_api.models import Contact, Task, SubTask
 from .serializers import ContactSerializer, TaskSerializer, SubTaskSerializer
 from django.shortcuts import get_object_or_404
 from .permissions import IsOwnerOrAdmin
-# from user_auth_app.models import UserProfile
-
-# class ContactViewSet(viewsets.ModelViewSet):
-#     queryset = Contact.objects.all()
-#     serializer_class = ContactSerializer
-#     permission_classes = [IsOwnerOrAdmin]
+from rest_framework.permissions import AllowAny
 
 class ContactViewSet(viewsets.ModelViewSet):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
-    permission_classes = [IsOwnerOrAdmin]
+    permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         email = request.data.get('email')
